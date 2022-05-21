@@ -1,4 +1,7 @@
 
+import org.w3c.dom.Node;
+
+import java.util.HashSet;
 import java.util.Objects;
 
 public class SinglyLinkedList {
@@ -26,7 +29,7 @@ public class SinglyLinkedList {
         } else {
             Node curr = head;
             Node prev = null;
-            while (curr != null && curr.x < x) {
+            while (curr != null && curr.value < x) {
                 prev = curr;
                 curr = curr.next;
             }
@@ -57,7 +60,7 @@ public class SinglyLinkedList {
         if (size == 0) {
             throw new RuntimeException("delete from an empty list");
         }
-        int item = head.x;
+        int item = head.value;
         head = head.next;
         size--;
         return item;
@@ -68,7 +71,7 @@ public class SinglyLinkedList {
             throw new RuntimeException("delete from an empty list");
         }
         if (size == 1) {
-            int item = head.x;
+            int item = head.value;
             head = null;
             tail = null;
             return item;
@@ -83,7 +86,7 @@ public class SinglyLinkedList {
         if (prev != null)
             tail.next = null;
         size--;
-        return curr.x;
+        return curr.value;
     }
 
     public int delete(int index) {
@@ -107,25 +110,123 @@ public class SinglyLinkedList {
         }
 
         size--;
-        return curr.x;
+        return curr.value;
     }
 
     public int deleteValue(int value) {
         Node curr = head;
         Node prev = null;
-        if (curr.x == value) {
+        if (curr.value == value) {
             deleteFront();
         }
         while (curr.next != null) {
             prev = curr;
             curr = curr.next;
-            if (curr.x == value) {
+            if (curr.value == value) {
                 prev.next = curr.next;
                 size--;
-                return curr.x;
+                return curr.value;
             }
         }
         throw new RuntimeException("value not found");
+    }
+
+    public void removeDuplicates() {
+        if (size < 2) {
+            return;
+        }
+        HashSet<Integer> set = new HashSet<>();
+        Node prev = null;
+        Node curr = head;
+        while (curr.next != null) {
+            if (set.contains(curr.value)) {
+                prev.next = curr.next;
+                size--;
+            } else {
+                set.add(curr.value);
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+        if (set.contains(curr.value)) {
+            prev.next = null;
+            size--;
+            tail = prev;
+        }
+    }
+
+    public void removeLastOccurrence(int value) {
+        if (size < 1) {
+            return;
+        }
+        Node prevLast = null;
+        Node last = null;
+        Node curr = head;
+        Node prev = null;
+        while (curr != null) {
+            if (curr.value == value) {
+                last = curr;
+                prevLast = prev;
+            }
+            prev = curr;
+            curr = curr.next;
+        }
+        if(last == null){
+            return;
+        }
+        if (prevLast == null) {
+            head = head.next;
+            size--;
+
+        } else {
+            prevLast.next = last.next;
+            size--;
+            if (prevLast.next == null) {
+                tail = prevLast;
+            }
+        }
+    }
+
+    public void moveToBack(int value) {
+        if (size < 2) {
+            return;
+        }
+        Node prev = null;
+        Node curr = head;
+        Node next = head.next;
+        int index = 1;
+        while (index < size - 1 && next != null) {
+
+            if (curr.value == value) {
+                if (prev == null) {
+                    head = head.next;
+                } else {
+                    prev.next = curr.next;
+                }
+                curr.next = null;
+                tail.next = curr;
+                tail = curr;
+            } else {
+                prev = curr;
+            }
+            curr = next;
+            next = next.next;
+            index++;
+        }
+
+    }
+
+    public int max() {
+        if(size == 0){
+            throw new RuntimeException("list is empty");
+        }
+        return maxHelper(head, head.value);
+    }
+    private int maxHelper(Node e, int max) {
+        if(e.next == null){
+            return Math.max(e.value, max);
+        }
+        return maxHelper(e.next, Math.max(e.value, max));
     }
 
     public void swapPairsPointers() {
@@ -169,14 +270,29 @@ public class SinglyLinkedList {
 
         while (node1 != null && node1.next != null) {
             Node node2 = node1.next;
-            int temp = node1.x;
-            node1.x = node2.x;
-            node2.x = temp;
+            int temp = node1.value;
+            node1.value = node2.value;
+            node2.value = temp;
             node1 = node1.next.next;
 //                node1 = node1.next;
         }
 
 
+    }
+
+    public void swapHeadTail() {
+        if (size < 2) {
+            return;
+        }
+        Node node = head;
+        while (node.next.next != null) {
+            node = node.next;
+        }
+        node.next = head;
+        tail.next = head.next;
+        head.next = null;
+        head = tail;
+        tail = node.next;
     }
 
     public void reverse() {
@@ -216,6 +332,7 @@ public class SinglyLinkedList {
         tail.next = null;
     }
 
+
     public void deleteEven() {
         Node curr = head;
         Node prev = null;
@@ -233,6 +350,20 @@ public class SinglyLinkedList {
 
     }
 
+    public void shiftLeft(int k) {
+        k = k % size;
+        Node newTail = head;
+        int index = 1;
+        while (index < k) {
+            index++;
+            newTail = newTail.next;
+        }
+        tail.next = head;
+        head = newTail.next;
+        tail = newTail;
+        newTail.next = null;
+    }
+
     public int get(int index) {
         if (index >= size) {
             return -1;
@@ -244,7 +375,7 @@ public class SinglyLinkedList {
             node = node.next;
         }
         if (i == index) {
-            return node.x;
+            return node.value;
         }
         return -1;
     }
@@ -259,7 +390,7 @@ public class SinglyLinkedList {
         }
         Node node = head;
         int index = 0;
-        while (node != null && node.x != item) {
+        while (node != null && node.value != item) {
             node = node.next;
             index++;
         }
@@ -275,16 +406,16 @@ public class SinglyLinkedList {
         Node node = head;
         int index = 0;
         Node prev = null;
-        while (node != null && node.x != item) {
+        while (node != null && node.value != item) {
             prev = node;
             node = node.next;
             index++;
         }
         if (node != null) {
             if (prev != null) {
-                int temp = node.x;
-                node.x = prev.x;
-                prev.x = temp;
+                int temp = node.value;
+                node.value = prev.value;
+                prev.value = temp;
             }
             return index;
         }
@@ -298,10 +429,10 @@ public class SinglyLinkedList {
         Node node = head;
         if (node != null) {
             while (node.next != null) {
-                out.append(node.x).append(", ");
+                out.append(node.value).append(", ");
                 node = node.next;
             }
-            out.append(node.x);
+            out.append(node.value);
         }
         out.append("}");
         return out.toString();
@@ -332,11 +463,11 @@ public class SinglyLinkedList {
     }
 
     private class Node {
-        private int x;
+        private int value;
         private Node next;
 
-        public Node(int x) {
-            this.x = x;
+        public Node(int value) {
+            this.value = value;
         }
 
         @Override
@@ -344,18 +475,18 @@ public class SinglyLinkedList {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Node node = (Node) o;
-            return x == node.x;
+            return value == node.value;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(x);
+            return Objects.hash(value);
         }
 
         @Override
         public String toString() {
             return "Node{" +
-                    "x=" + x +
+                    "value=" + value +
                     '}';
         }
     }
