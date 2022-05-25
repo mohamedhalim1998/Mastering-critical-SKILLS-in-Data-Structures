@@ -1,27 +1,30 @@
 public class Main {
     public static void main(String[] args) {
         SinglyLinkedList list = new SinglyLinkedList();
-        list.insert(20);
+//        SinglyLinkedList list2 = new SinglyLinkedList();
         list.insert(1);
         list.insert(1);
         list.insert(1);
+        list.insert(1);
+        list.insert(1);
+        list.insert(2);
+        list.insert(2);
         list.insert(3);
-        list.insert(1);
-        list.insert(6);
-        list.insert(7);
-        list.insert(1);
+        list.insert(4);
+//        list.insert(3);
         list.insert(5);
-        list.insert(1);
-//        list.insert(1);
-//        list.insertSorted(10);
-//        list.insertSorted(2);
-//        list.insertSorted(30);
-//        list.insertSorted(4);
-//        list.insertSorted(1);
-        //  System.out.println(list.size);
+        list.insert(6);
         System.out.println(list);
-        list.removeLastOccurrence(50);
+//        list.reverseChains(3);
+//        list.reverseInPlace();
+        list.removeRepeatedSorted();
         System.out.println(list);
+
+//  //      list2.insert(8);
+//        list1.insert(9);
+//        System.out.println(list1);
+//        System.out.println(list2);
+//        System.out.println(list1.addNumber(list2));
 
 
     }
