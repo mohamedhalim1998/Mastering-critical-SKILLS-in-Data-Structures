@@ -56,6 +56,64 @@ public class SinglyLinkedList {
         size++;
     }
 
+    public SinglyLinkedList insertAlternate(SinglyLinkedList that) {
+        Node c1 = this.head;
+        Node c2 = that.head;
+        boolean isThis = true;
+        SinglyLinkedList newList = new SinglyLinkedList();
+        while (c1 != null || c2 != null) {
+            if (c1 == null) {
+                newList.insert(c2.value);
+                c2 = c2.next;
+            } else if (c2 == null) {
+                newList.insert(c1.value);
+                c1 = c1.next;
+            } else if (isThis) {
+                newList.insert(c1.value);
+                c1 = c1.next;
+                isThis = false;
+            } else {
+                newList.insert(c2.value);
+                c2 = c2.next;
+                isThis = true;
+            }
+
+        }
+        return newList;
+    }
+
+    public SinglyLinkedList addNumber(SinglyLinkedList that) {
+        SinglyLinkedList list = new SinglyLinkedList();
+        Node c1 = this.head;
+        Node c2 = that.head;
+        int rem = 0;
+        while (c1 != null || c2 != null) {
+            int sum = 0;
+            if (c1 == null) {
+                sum = c2.value + rem;
+                c2 = c2.next;
+            } else if (c2 == null) {
+                sum = c1.value + rem;
+                c1 = c1.next;
+            } else {
+                sum = c1.value + c2.value + rem;
+                c1 = c1.next;
+                c2 = c2.next;
+            }
+            if (sum > 9) {
+                rem = 1;
+                sum = sum - 10;
+            } else {
+                rem = 0;
+            }
+            list.insert(sum);
+        }
+        if (rem > 0) {
+            list.insert(rem);
+        }
+        return list;
+    }
+
     public int deleteFront() {
         if (size == 0) {
             throw new RuntimeException("delete from an empty list");
@@ -131,7 +189,7 @@ public class SinglyLinkedList {
         throw new RuntimeException("value not found");
     }
 
-    public void removeDuplicates() {
+    public void removeDuplicatesWithSet() {
         if (size < 2) {
             return;
         }
@@ -155,6 +213,116 @@ public class SinglyLinkedList {
         }
     }
 
+    public void removeDuplicates() {
+        if (size < 2) {
+            return;
+        }
+        Node node = head;
+        Node curr = head.next;
+        Node prev = head;
+        while (node != null) {
+            curr = node.next;
+            while (curr != null) {
+                if (node.value == curr.value) {
+
+                    prev.next = curr.next;
+                    if (curr.next == null) {
+                        tail = curr;
+
+                    }
+                    size--;
+                } else {
+                    prev = curr;
+                }
+                curr = curr.next;
+            }
+            node = node.next;
+        }
+    }
+
+    public void removeRepeated() {
+        if (size < 2) {
+            return;
+        }
+        Node prev = null;
+        Node curr = head;
+        while (curr != null) {
+            Node innerPrev = curr;
+            Node innerCurr = curr.next;
+            boolean repeated = false;
+            while (innerCurr != null) {
+                if (curr.value == innerCurr.value) {
+                    repeated = true;
+                    innerPrev.next = innerCurr.next;
+                    if (innerCurr.next == null) {
+                        tail = innerCurr;
+                    }
+                    size--;
+                } else {
+                    innerPrev = innerCurr;
+                }
+                innerCurr = innerCurr.next;
+            }
+            if (repeated) {
+                if (prev == null) {
+                    head = head.next;
+                } else {
+                    prev.next = curr.next;
+                }
+                size--;
+            } else {
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+        if (size == 0) {
+            head = null;
+            tail = null;
+        }
+        System.out.println(head);
+        System.out.println(tail);
+        System.out.println(size);
+    }
+
+    public void removeRepeatedSorted() {
+        if (size < 2) {
+            return;
+        }
+        Node prev = null;
+        Node curr = head;
+        Node next = head.next;
+        while (curr != null) {
+            boolean removed = false;
+            while (next != null && curr.value == next.value) {
+                curr.next = next.next;
+                next = next.next;
+                removed = true;
+                size--;
+            }
+            if (removed) {
+                if (prev == null) {
+                    head = curr.next;
+                } else {
+                    prev.next = curr.next;
+                }
+                size--;
+            } else {
+                prev = curr;
+            }
+            curr = next;
+            if (curr != null)
+                next = next.next;
+        }
+        if (prev == null) {
+            tail = head;
+        } else {
+            tail = prev;
+        }
+        System.out.println(head);
+        System.out.println(tail);
+        System.out.println(size);
+    }
+
     public void removeLastOccurrence(int value) {
         if (size < 1) {
             return;
@@ -171,7 +339,7 @@ public class SinglyLinkedList {
             prev = curr;
             curr = curr.next;
         }
-        if(last == null){
+        if (last == null) {
             return;
         }
         if (prevLast == null) {
@@ -217,13 +385,14 @@ public class SinglyLinkedList {
     }
 
     public int max() {
-        if(size == 0){
+        if (size == 0) {
             throw new RuntimeException("list is empty");
         }
         return maxHelper(head, head.value);
     }
+
     private int maxHelper(Node e, int max) {
-        if(e.next == null){
+        if (e.next == null) {
             return Math.max(e.value, max);
         }
         return maxHelper(e.next, Math.max(e.value, max));
@@ -295,6 +464,25 @@ public class SinglyLinkedList {
         tail = node.next;
     }
 
+    public void arrangeOddEven() {
+        if (size < 3) {
+            return;
+        }
+        Node odd = head;
+        Node even = odd.next;
+        Node firstEven = even;
+        while (odd.next != null && even.next != null) {
+            odd.next = even.next;
+            odd = even.next;
+            even.next = odd.next;
+            if (odd.next != null)
+                even = odd.next;
+
+        }
+        odd.next = firstEven;
+        tail = even;
+    }
+
     public void reverse() {
         if (size < 2) {
             return;
@@ -329,6 +517,41 @@ public class SinglyLinkedList {
             head = next;
         }
         head = prev;
+        tail.next = null;
+    }
+
+    public void reverseChains(int k) {
+        if (size < 2) {
+            return;
+        }
+        if (size <= k) {
+            reverseInPlace();
+            return;
+        }
+        Node curr = head;
+        Node next = curr.next;
+        Node first = curr;
+        Node old = null;
+        while (curr != null && next != null) {
+            Node prev = curr;
+            first = curr;
+            curr = curr.next;
+            for (int i = 0; i < k - 1 && curr != null; i++) {
+                next = curr.next;
+                curr.next = prev;
+                prev = curr;
+                curr = next;
+            }
+            if (old == null) {
+                head = prev;
+            } else {
+                old.next = prev;
+            }
+            first.next = curr;
+            old = first;
+            curr = next;
+        }
+        tail = first;
         tail.next = null;
     }
 
