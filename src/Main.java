@@ -1,31 +1,36 @@
 public class Main {
     public static void main(String[] args) {
-        SinglyLinkedList list = new SinglyLinkedList();
-//        SinglyLinkedList list2 = new SinglyLinkedList();
+        DoublyLinkedList list = new DoublyLinkedList();
+        DoublyLinkedList list2 = new DoublyLinkedList();
+//        list.insert(1);
+//        list.insert(2);
+//        list.insert(2);
+//        list.insert(3);
+//        list.insert(2);
+//        list.insert(2);
+//        list.insert(1);
         list.insert(1);
-        list.insert(1);
-        list.insert(1);
-        list.insert(1);
-        list.insert(1);
-        list.insert(2);
         list.insert(2);
         list.insert(3);
         list.insert(4);
-//        list.insert(3);
         list.insert(5);
         list.insert(6);
+        list.insert(7);
+        list.insert(8);
+        list.insert(9);
+        list.insert(10);
+        list.insert(11);
         System.out.println(list);
-//        list.reverseChains(3);
-//        list.reverseInPlace();
-        list.removeRepeatedSorted();
+        list.isPalindrome();
         System.out.println(list);
-
-//  //      list2.insert(8);
-//        list1.insert(9);
-//        System.out.println(list1);
-//        System.out.println(list2);
-//        System.out.println(list1.addNumber(list2));
-
+//        System.out.println(list.getMiddle());
+//        list.swapForwardBackward(1);
+//        list.reverse();
+//        System.out.println(list);
+//        list.deleteEnd();
+//        System.out.println(list);
+//        list.deleteFront();
+//        System.out.println(list);
 
     }
 }
