@@ -171,7 +171,165 @@ public class DoublyLinkedList {
         return true;
     }
 
+    public int getMiddle() {
+        if (size < 1) {
+            return -1;
+        }
+        Node front = head;
+        Node back = tail;
+        boolean moveFront = true;
+        while (front != back) {
+            if (moveFront) {
+                front = front.next;
+            } else {
+                back = back.prev;
+            }
+            moveFront = !moveFront;
+        }
+        return front.value;
+    }
 
+    public int getMiddleNextOnly() {
+        if (size < 1) {
+            return -1;
+        }
+        Node slow = head;
+        Node fast = head;
+        while (fast != null) {
+            fast = fast.next;
+            if (fast != null) {
+                fast = fast.next;
+            }
+            slow = slow.next;
+        }
+        return slow.value;
+    }
+
+    public void swapForwardBackward(int k) {
+        if (size < 2 || k > size) {
+            return;
+        }
+        Node front = head;
+        Node back = tail;
+        if (k > size / 2) {
+            k = size - k + 1;
+        }
+        for (int i = 0; i < k - 1; i++) {
+            front = front.next;
+            back = back.prev;
+        }
+        Node prevFront = front.prev;
+        Node nextFront = front.next;
+        Node prevBack = back.prev;
+        Node nextBack = back.next;
+
+        link(prevFront, back);
+        link(front, nextBack);
+        if (nextFront != back) {
+            link(back, nextFront);
+            link(prevBack, front);
+        } else {
+            link(back, front);
+        }
+        if (k == 1) {
+            Node temp = head;
+            head = tail;
+            tail = temp;
+        }
+
+    }
+
+    public void swapForwardBackwardWithoutSize(int k) {
+        Node front = head;
+        Node back = tail;
+        for (int i = 0; i < k - 1; i++) {
+            front = front.next;
+            back = back.prev;
+        }
+        Node prevFront = front.prev;
+        Node nextFront = front.next;
+        Node prevBack = back.prev;
+        Node nextBack = back.next;
+        if (front.next == back) {
+            Node temp = front;
+            front = back;
+            back = temp;
+        }
+        link(prevFront, back);
+        link(front, nextBack);
+        if (nextFront != back) {
+            link(back, nextFront);
+            link(prevBack, front);
+        } else {
+            link(back, front);
+        }
+        if (k == 1) {
+            Node temp = head;
+            head = tail;
+            tail = temp;
+        }
+
+    }
+
+    public void reverse() {
+        if (size < 2) {
+            return;
+        }
+        tail = head;
+        Node prev = head;
+        head = head.next;
+        while (head != null) {
+            Node next = head.next;
+            head.next = prev;
+            head.prev = next;
+            prev = head;
+            head = next;
+        }
+        head = prev;
+        tail.next = null;
+    }
+
+    public void mergeSorted(DoublyLinkedList that) {
+        if (size == 0) {
+            this.head = that.head;
+            this.tail = that.tail;
+            this.size = that.size;
+            return;
+        }
+        if (that.size == 0) {
+            return;
+        }
+        Node c1 = this.head;
+        Node c2 = that.head;
+        Node prev = null;
+        while (c2 != null) {
+            if (c1 == null) {
+                tail.next = c2;
+                c2.prev = tail;
+                tail = c2;
+                c2 = c2.next;
+                tail.next = null;
+            } else if (c1.value < c2.value) {
+                prev = c1;
+                c1 = c1.next;
+            } else {
+                Node next = c2.next;
+                if (prev == null) {
+                    c2.next = head;
+                    c2.prev = null;
+                    head = c2;
+                } else {
+                    prev.next = c2;
+                    c2.prev = prev;
+                    c2.next = c1;
+                    c1.prev = c2;
+                }
+                c2 = next;
+            }
+        }
+        size += that.size;
+
+    }
 
     private void link(Node first, Node second) {
         if (first != null)

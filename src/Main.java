@@ -19,9 +19,9 @@ public class Main {
         list.insert(8);
         list.insert(9);
         list.insert(10);
-        list.insert(11);
+//        list.insert(11);
         System.out.println(list);
-        list.isPalindrome();
+        list.swapForwardBackwardWithoutSize(2);
         System.out.println(list);
 //        System.out.println(list.getMiddle());
 //        list.swapForwardBackward(1);
