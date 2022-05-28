@@ -1,36 +1,27 @@
 public class Main {
     public static void main(String[] args) {
-        DoublyLinkedList list = new DoublyLinkedList();
-        DoublyLinkedList list2 = new DoublyLinkedList();
-//        list.insert(1);
-//        list.insert(2);
-//        list.insert(2);
-//        list.insert(3);
-//        list.insert(2);
-//        list.insert(2);
-//        list.insert(1);
-        list.insert(1);
-        list.insert(2);
-        list.insert(3);
-        list.insert(4);
-        list.insert(5);
-        list.insert(6);
-        list.insert(7);
-        list.insert(8);
-        list.insert(9);
-        list.insert(10);
-//        list.insert(11);
-        System.out.println(list);
-        list.swapForwardBackwardWithoutSize(2);
-        System.out.println(list);
-//        System.out.println(list.getMiddle());
-//        list.swapForwardBackward(1);
-//        list.reverse();
-//        System.out.println(list);
-//        list.deleteEnd();
-//        System.out.println(list);
-//        list.deleteFront();
-//        System.out.println(list);
+        SparseMatrix mat = new SparseMatrix(10, 10);
+        mat.set(5, 3, 5);
+        mat.set(7, 3, 7);
+        mat.set(2, 3, 2);
+        mat.set(0, 3, 2);
+        mat.set(6, 5, 6);
+        mat.set(4, 5, 4);
+        mat.set(3, 7, 3);
+        mat.set(1, 7, 1);
+        //mat.set(1, 70, 1);
+        mat.print();
+        mat.printNonZero();
+
+        SparseMatrix mat2 = new SparseMatrix(10, 10);
+        mat2.set(5, 1, 9);
+        mat2.set(6, 3, 8);
+        mat2.set(9, 9, 9);
+        mat2.print();
+        System.out.println("----------------------------------------------------");
+        mat.add(mat2);
+        mat.print();
+        mat.printNonZero();
 
     }
 }
