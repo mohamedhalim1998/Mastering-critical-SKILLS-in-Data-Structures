@@ -1,15 +1,10 @@
-import java.util.Arrays;
-import java.util.Stack;
+import section6.HW3P3;
+import section6.HW3P5;
+
 
 public class Main {
     public static void main(String[] args) {
-//        section6.StackArray stk= new section6.StackArray(10);
-//        stk.push(1);
-//        stk.push(2);
-//        stk.push(3);
-//        stk.display();	// 3 2 1
-//        stk.reverse();
-//        stk.display();	// 1 2 3
+        System.out.println(HW3P5.removeBrackets("1-(2-3-(4+5-(6-7)))"));
 
     }
 
