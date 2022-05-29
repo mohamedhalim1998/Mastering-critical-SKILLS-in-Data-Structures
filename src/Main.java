@@ -1,18 +1,17 @@
+import java.util.Arrays;
 import java.util.Stack;
 
 public class Main {
     public static void main(String[] args) {
-        TwoStacks stk = new TwoStacks(10);
-        stk.push(2, 5);
-        stk.push(2, 6);
-        stk.pop(2);
-        stk.pop(2);
-        stk.push(2, 7);
-        stk.push(2, 9);
+//        StackArray stk= new StackArray(10);
+//        stk.push(1);
+//        stk.push(2);
+//        stk.push(3);
+//        stk.display();	// 3 2 1
+//        stk.reverse();
+//        stk.display();	// 1 2 3
 
-        stk.push(1, 4);
-        stk.push(1, 6);
-        stk.push(1, 8);
-        stk.display();
     }
+
+
 }
