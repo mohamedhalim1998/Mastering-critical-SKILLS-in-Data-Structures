@@ -1,38 +1,36 @@
-public class SparseMatrix {
+package section5;
+
+public class SparseArray {
     private Node head;
     private Node tail;
     private int size;
-    private final int rows;
-    private final int cols;
+    private final int capacity;
 
-    public SparseMatrix(int rows, int cols) {
-        this.rows = rows;
-        this.cols = cols;
+    public SparseArray(int capacity) {
+        this.capacity = capacity;
     }
 
-    public void set(int value, int row, int col) {
-        insertSorted(row, col, value);
+    public void set(int index, int value) {
+        insertSorted(index, value);
     }
 
-    public void insertSorted(int row, int col, int value) {
-
-        if (size == 0 || row < head.row) {
-            insertFront(row, col, value);
+    public void insertSorted(int index, int value) {
+        if (size == 0 || index < head.index) {
+            insertFront(index, value);
             return;
         }
-        if (row > tail.row) {
-            insert(row, col, value);
+        if (index > tail.index) {
+            insert(index, value);
             return;
         }
         Node prev = null;
         Node curr = head;
         while (curr != null) {
-            if (curr.row == row) {
-                curr.sparseArray.set(col, value);
+            if (curr.index == index) {
+                curr.value = value;
                 return;
-            } else if (curr.row > row) {
-                Node node = new Node(row);
-                node.sparseArray.set(col, value);
+            } else if (curr.index > index) {
+                Node node = new Node(index, value);
                 link(prev, node);
                 link(node, curr);
                 size++;
@@ -43,9 +41,8 @@ public class SparseMatrix {
         }
     }
 
-    private void insert(int row, int col, int value) {
-        Node node = new Node(row);
-        node.sparseArray.set(col, value);
+    private void insert(int index, int value) {
+        Node node = new Node(index, value);
         if (size == 0) {
             head = node;
         } else {
@@ -55,9 +52,8 @@ public class SparseMatrix {
         size++;
     }
 
-    private void insertFront(int row, int col, int value) {
-        Node node = new Node(row);
-        node.sparseArray.set(col, value);
+    private void insertFront(int index, int value) {
+        Node node = new Node(index, value);
         if (size == 0) {
             tail = node;
         } else {
@@ -67,18 +63,18 @@ public class SparseMatrix {
         size++;
     }
 
-    public int get(int row, int col) {
+    public int get(int index) {
         Node curr = head;
-        while (curr != null && curr.row <= row) {
-            if (curr.row == row) {
-                return curr.sparseArray.get(col);
+        while (curr != null && curr.index <= index) {
+            if (curr.index == index) {
+                return curr.value;
             }
             curr = curr.next;
         }
         return -1;
     }
 
-    public void add(SparseMatrix array) {
+    public void add(SparseArray array) {
         Node prev1 = null;
         Node curr1 = head;
         Node curr2 = array.head;
@@ -89,12 +85,12 @@ public class SparseMatrix {
                 tail = curr2;
                 tail.next = null;
                 curr2 = next;
-            } else if (curr1.row == curr2.row) {
-                curr1.sparseArray.add(curr2.sparseArray);
+            } else if (curr1.index == curr2.index) {
+                curr1.value += curr2.value;
                 prev1 = curr1;
                 curr1 = curr1.next;
                 curr2 = curr2.next;
-            } else if (curr1.row > curr2.row) {
+            } else if (curr1.index > curr2.index) {
                 Node next = curr2.next;
                 link(prev1, curr2);
                 link(curr2, curr1);
@@ -121,69 +117,73 @@ public class SparseMatrix {
         }
     }
 
-
+    public int size() {
+        return capacity;
+    }
 
     public void print() {
         Node curr = head;
-        for (int i = 0; i < rows; i++) {
-            if (curr != null && curr.row == i) {
-                curr.sparseArray.print();
+        StringBuilder out = new StringBuilder();
+        for (int i = 0; i < capacity; i++) {
+            if (curr != null && curr.index == i) {
+                out.append(curr.value).append(' ');
                 curr = curr.next;
             } else {
-                StringBuilder out = new StringBuilder();
-                for (int j = 0; j < cols; j++) {
-                    out.append(0).append(' ');
-                }
-                System.out.println(out);
+                out.append(0).append(' ');
             }
         }
+        System.out.println(out);
     }
 
     public void printNonZero() {
         Node curr = head;
+        StringBuilder out = new StringBuilder();
+
         while (curr != null) {
-            curr.sparseArray.printNonZero();
+            out.append(curr.value).append(' ');
             curr = curr.next;
         }
+        System.out.println(out);
     }
 
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
+//        out.append("head:").append(head).append('\n');
 //        out.append("tail:").append(tail).append('\n');
 //        out.append("size: ").append(size).append('\n');
         Node curr = head;
+        out.append("null <-");
         while (curr != null) {
-            out.append("row:").append(curr.row).append('\n');
-            out.append(curr.sparseArray.toString());
-            out.append("\n");
+            out.append(curr);
+            if (curr.next != null) {
+                out.append("<=>");
+            }
             curr = curr.next;
         }
-//        out.append("-> null");
+        out.append("-> null");
         return out.toString();
     }
 
     private class Node {
-        int row;
-        SparseArray sparseArray;
+        int index, value;
         Node next, prev;
-
-        public Node(int row) {
-            this.row = row;
-            this.sparseArray = new SparseArray(cols);
-        }
 
         public Node() {
         }
 
-        public Node(int row, int value) {
-            this.row = row;
+        public Node(int index, int value) {
+            this.index = index;
+            this.value = value;
         }
 
+        public Node(int value) {
+            this.value = value;
+        }
 
         @Override
         public String toString() {
-            return " " + row + " ";
+            return " (" + index + ", " + value + ") ";
         }
     }
 }
