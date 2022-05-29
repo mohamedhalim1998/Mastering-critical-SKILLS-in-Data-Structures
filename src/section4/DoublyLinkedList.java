@@ -1,4 +1,4 @@
-import org.w3c.dom.Node;
+package section4;
 
 public class DoublyLinkedList {
     private Node head;

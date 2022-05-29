@@ -1,5 +1,4 @@
-
-import org.w3c.dom.Node;
+package section3;
 
 import java.util.HashSet;
 import java.util.Objects;
