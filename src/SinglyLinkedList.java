@@ -1,3 +1,5 @@
+import org.w3c.dom.Node;
+
 import java.util.Objects;
 
 public class SinglyLinkedList {
@@ -37,6 +39,50 @@ public class SinglyLinkedList {
         head = head.next;
         size--;
         return item;
+    }
+
+    public int deleteLast() {
+        if (size == 0) {
+            throw new RuntimeException("delete from an empty list");
+        }
+        if (size == 1) {
+            int item = head.x;
+            head = null;
+            tail = null;
+            return item;
+        }
+        Node curr = head;
+        Node prev = null;
+        while (curr.next != null) {
+            prev = curr;
+            curr = curr.next;
+        }
+        tail = prev;
+        if (prev != null)
+            tail.next = null;
+        size--;
+        return curr.x;
+    }
+
+    public int delete(int index) {
+        if (index >= size) {
+            throw new RuntimeException("request index not found");
+        }
+
+        Node curr = head;
+        Node prev = null;
+        int i = 0;
+        while (i < index) {
+            prev = curr;
+            curr = curr.next;
+            i++;
+        }
+        if (prev != null) {
+            prev.next = curr.next;
+        }
+
+        size--;
+        return curr.x;
     }
 
 
@@ -108,8 +154,9 @@ public class SinglyLinkedList {
                 out.append(node.x).append(", ");
                 node = node.next;
             }
-            out.append(node.x).append("}");
+            out.append(node.x);
         }
+        out.append("}");
         return out.toString();
     }
 
