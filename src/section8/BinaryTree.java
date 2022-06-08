@@ -1,5 +1,8 @@
 package section8;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class BinaryTree {
     private Node root;
 
@@ -18,7 +21,6 @@ public class BinaryTree {
     public void printPostorder() {
         System.out.println(root.postOrder().replace("null ", ""));
     }
-
 
     public void addWithDirections(int[] values, char[] directions) {
         Node curr = root;
@@ -45,6 +47,28 @@ public class BinaryTree {
         }
     }
 
+    public void printByLevel() {
+        int level = 0;
+        StringBuilder out = new StringBuilder();
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            out.append("level ").append(level).append(": ");
+            while (size-- > 0) {
+                Node node = queue.remove();
+
+                out.append(node.value).append(' ');
+                if(node.left != null)
+                queue.add(node.left);
+                if(node.right != null)
+                queue.add(node.right);
+            }
+            out.append('\n');
+            level++;
+        }
+        System.out.println(out);
+    }
 
     @Override
     public String toString() {
@@ -61,8 +85,9 @@ public class BinaryTree {
 
         @Override
         public String toString() {
-            return left + " " + value + " " + right + " ";
+            return (left != null ? left + " " : "") + value + (right != null ? " " + right : "");
         }
+
 
         public String preOrder() {
             return value + " " + left + " " + right + " ";

@@ -1,7 +1,10 @@
 package section8;
 
 
-public class HW3P1 {
+import java.util.LinkedList;
+import java.util.Queue;
+
+public class HW3P2 {
 
     public static class BinaryTree {
         private Node root;
@@ -47,36 +50,33 @@ public class HW3P1 {
             }
         }
 
-        private int levelHelper(Node node) {
-            if (node == null) {
-                return 0;
+        public void printByLevel() {
+            int level = 0;
+            StringBuilder out = new StringBuilder();
+            Queue<Node> queue = new LinkedList<>();
+            queue.add(root);
+            while (!queue.isEmpty()) {
+                int size = queue.size();
+                out.append("level ").append(level).append(": ");
+                while (size-- > 0) {
+                    Node node = queue.remove();
+                    out.append(node.value).append(' ');
+                    if(level %2 == 1) {
+                        if (node.left != null)
+                            queue.add(node.left);
+                        if (node.right != null)
+                            queue.add(node.right);
+                    } else {
+                        if (node.left != null)
+                            queue.add(node.right);
+                        if (node.right != null)
+                            queue.add(node.left);
+                    }
+                }
+                out.append('\n');
+                level++;
             }
-            return 1 + Math.max(levelHelper(node.left), levelHelper(node.right));
-        }
-
-        public int levels() {
-            return levelHelper(root);
-        }
-
-        public void printByLevelRecursive() {
-            int levels = levels();
-            for (int i = 0; i < levels; i++) {
-                System.out.print("level " + i + ": ");
-                printByLevelHelper(root, 0, i);
-                System.out.println();
-            }
-        }
-
-        private void printByLevelHelper(Node node, int level, int print) {
-            if(node == null){
-                return;
-            }
-            if(print == level){
-                System.out.print(node.value + " ");
-            }
-            printByLevelHelper(node.left, level +1 , print);
-            printByLevelHelper(node.right, level +1 , print);
-
+            System.out.println(out);
         }
 
         @Override

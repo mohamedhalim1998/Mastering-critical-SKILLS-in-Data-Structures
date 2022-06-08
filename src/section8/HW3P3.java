@@ -1,10 +1,12 @@
+
 package section8;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class HW3P2 {
+public class HW3P3 {
 
     public static class BinaryTree {
         private Node root;
@@ -50,35 +52,45 @@ public class HW3P2 {
             }
         }
 
-        public void printByLevel() {
-            int level = 0;
-            StringBuilder out = new StringBuilder();
+        public boolean isComplete() {
+
+            return allLevelsFullExceptLast() && hasLeftAndRightOrLeft(root);
+
+        }
+        private boolean allLevelsFullExceptLast() {
+            ArrayList<Integer> list = new ArrayList<>();
             Queue<Node> queue = new LinkedList<>();
             queue.add(root);
             while (!queue.isEmpty()) {
                 int size = queue.size();
-                out.append("level ").append(level).append(": ");
+                list.add(size);
                 while (size-- > 0) {
                     Node node = queue.remove();
-                    out.append(node.value).append(' ');
-                    if(level %2 == 1) {
-                        if (node.left != null)
-                            queue.add(node.left);
-                        if (node.right != null)
-                            queue.add(node.right);
-                    } else {
-                        if (node.left != null)
-                            queue.add(node.right);
-                        if (node.right != null)
-                            queue.add(node.left);
-                    }
+                    if (node.left != null)
+                        queue.add(node.left);
+                    if (node.right != null)
+                        queue.add(node.right);
                 }
-                out.append('\n');
-                level++;
             }
-            System.out.println(out);
+            for (int i = 0; i < list.size() - 1; i++) {
+                if (list.get(i) != Math.pow(2, i)) {
+                    return false;
+                }
+            }
+            return true;
         }
-        
+
+        private boolean hasLeftAndRightOrLeft(Node node) {
+            if (node == null) {
+                return true;
+            }
+            if (node.left == null && node.right != null) {
+                return false;
+            }
+
+            return hasLeftAndRightOrLeft(node.left) && hasLeftAndRightOrLeft(node.right);
+        }
+
         @Override
         public String toString() {
             return root.toString();
