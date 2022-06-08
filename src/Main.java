@@ -1,24 +1,20 @@
 
 import section7.HW1P4;
+import section7.HW2P1;
+import section7.HW2P2;
+import section7.HW2P3;
 
 import java.util.Queue;
+import java.util.Scanner;
 
 
 public class Main {
     public static void main(String[] args) {
-        HW1P4.QueueTwoStacks qu = new HW1P4.QueueTwoStacks(6);
-
-        for (int i = 1; i <= 6; ++i)
-            qu.enqueue(i);
-
-        System.out.println(qu.dequeue() + " ");
-
-            qu.enqueue(7);
-
-        while(!qu.isEmpty())
-            System.out.println(qu.dequeue() + " ");
-
+        HW2P3.SumStream stream = new HW2P3.SumStream(4);
+        Scanner scanner = new Scanner(System.in);
+        while (scanner.hasNext()) {
+            System.out.println(stream.next(scanner.nextInt()));
+        }
     }
-
 
 }
