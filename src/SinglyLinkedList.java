@@ -1,4 +1,3 @@
-import org.w3c.dom.Node;
 
 import java.util.Objects;
 
@@ -15,6 +14,29 @@ public class SinglyLinkedList {
         } else {
             tail.next = node;
             tail = node;
+        }
+        size++;
+    }
+
+    public void insertSorted(int x) {
+        Node node = new Node(x);
+        if (head == null) {
+            head = node;
+            tail = head;
+        } else {
+            Node curr = head;
+            Node prev = null;
+            while (curr != null && curr.x < x) {
+                prev = curr;
+                curr = curr.next;
+            }
+            if (prev != null) {
+                node.next = curr;
+                prev.next = node;
+            } else {
+                node.next = head;
+                head = node;
+            }
         }
         size++;
     }
@@ -72,6 +94,9 @@ public class SinglyLinkedList {
         Node curr = head;
         Node prev = null;
         int i = 0;
+        if (index == 0) {
+            deleteFront();
+        }
         while (i < index) {
             prev = curr;
             curr = curr.next;
@@ -85,6 +110,128 @@ public class SinglyLinkedList {
         return curr.x;
     }
 
+    public int deleteValue(int value) {
+        Node curr = head;
+        Node prev = null;
+        if (curr.x == value) {
+            deleteFront();
+        }
+        while (curr.next != null) {
+            prev = curr;
+            curr = curr.next;
+            if (curr.x == value) {
+                prev.next = curr.next;
+                size--;
+                return curr.x;
+            }
+        }
+        throw new RuntimeException("value not found");
+    }
+
+    public void swapPairsPointers() {
+        if (size < 2) {
+            return;
+        }
+        Node node1 = head;
+        Node node2 = head.next;
+        Node prev = null;
+        if (node2 != null) {
+            node1.next = node2.next;
+            node2.next = node1;
+            head = node2;
+            prev = node1;
+            node1 = node1.next;
+            if (node1 != null)
+                node2 = node1.next;
+        }
+
+        while (node1 != null && node2 != null) {
+            prev.next = node2;
+            node1.next = node2.next;
+            node2.next = node1;
+            prev = node1;
+            node1 = node1.next;
+            if (node1 != null)
+                node2 = node1.next;
+        }
+        if (node1 != null)
+            tail = node1;
+        else
+            tail = prev;
+    }
+
+    public void swapPairsValues() {
+        if (size < 2) {
+            return;
+        }
+        Node node1 = head;
+
+
+        while (node1 != null && node1.next != null) {
+            Node node2 = node1.next;
+            int temp = node1.x;
+            node1.x = node2.x;
+            node2.x = temp;
+            node1 = node1.next.next;
+//                node1 = node1.next;
+        }
+
+
+    }
+
+    public void reverse() {
+        if (size < 2) {
+            return;
+        }
+        Node[] nodes = new Node[size];
+        int index = 0;
+        Node curr = head;
+        while (curr != null) {
+            nodes[index++] = curr;
+            curr = curr.next;
+        }
+        for (int i = 0; i < size; i++) {
+            nodes[i].next = null;
+        }
+        for (int i = size - 2; i >= 0; i--) {
+            nodes[i + 1].next = nodes[i];
+        }
+        head = nodes[size - 1];
+    }
+
+    public void reverseInPlace() {
+        if (size < 2) {
+            return;
+        }
+        tail = head;
+        Node prev = head;
+        head = head.next;
+        while (head != null) {
+            Node next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        head = prev;
+        tail.next = null;
+    }
+
+    public void deleteEven() {
+        Node curr = head;
+        Node prev = null;
+        int i = 0;
+        while (curr.next != null) {
+            prev = curr;
+            curr = curr.next;
+            if (i % 2 == 0) {
+                prev.next = curr.next;
+                size--;
+            }
+            i++;
+        }
+
+
+    }
 
     public int get(int index) {
         if (index >= size) {
@@ -203,6 +350,13 @@ public class SinglyLinkedList {
         @Override
         public int hashCode() {
             return Objects.hash(x);
+        }
+
+        @Override
+        public String toString() {
+            return "Node{" +
+                    "x=" + x +
+                    '}';
         }
     }
 
