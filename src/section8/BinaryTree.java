@@ -22,6 +22,10 @@ public class BinaryTree {
         System.out.println(root.postOrder().replace("null ", ""));
     }
 
+    public void parenthesize() {
+        System.out.println(root.parenthesize());
+    }
+
     public void addWithDirections(int[] values, char[] directions) {
         Node curr = root;
         for (int i = 0; i < values.length; i++) {
@@ -95,6 +99,10 @@ public class BinaryTree {
 
         public String postOrder() {
             return left + " " + right + " " + value + " ";
+        }
+
+        public String parenthesize() {
+            return "(" + value +  ( left != null ? left.parenthesize() : "" )+    ( right != null ? right.parenthesize() : "" ) + ")";
         }
     }
 
