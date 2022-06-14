@@ -1,34 +1,31 @@
-import section8.*;
+import section9.*;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class Main {
     public static void main(String[] args) {
-        HW5P3.BinaryTree tree= new HW5P3.BinaryTree(1);
-	/*
-	tree.add(new int[]{2, 4, 8 },new char[]{'L', 'L', 'L' });
-	tree.add(new int[]{2, 4, 9 },new char[]{'L', 'L', 'R' });
-	tree.add(new int[]{2, 5, 10 },new char[]{'L', 'R', 'L' });
-	tree.add(new int[]{2, 5, 11 },new char[]{'L', 'R', 'R' });
+        HW1P5.BinarySearchTree bts = new HW1P5.BinarySearchTree();
+        bts.insert(50);
+        bts.insert(20);
+        bts.insert(60);
+        bts.insert(58);
+        bts.insert(70);
+        bts.insert(73);
+        bts.insert(75);
+        bts.insert(15);
+        bts.insert(45);
+        bts.insert(35);
+        bts.insert(36);
+        bts.printByLevel();
+        System.out.println(bts.lca(15,45));
+        System.out.println(bts.lca(45,36));
+        System.out.println(bts.lca(15,70));
+        System.out.println(bts.lca(58,70));
+        System.out.println(bts.lca(36,75));
 
-	tree.add(new int[]{3, 6, 12 },new char[]{'R', 'L', 'L' });
-	tree.add(new int[]{3, 6, 13 },new char[]{'R', 'L', 'R' });
-	tree.add(new int[]{3, 7, 14 },new char[]{'R', 'R', 'L' });
-	tree.add(new int[]{3, 7, 15 },new char[]{'R', 'R', 'R' });
-	tree.add(new int[]{3, 7, 15, 16 },new char[]{'R', 'R', 'R', 'R' });
-	*/
-
-        tree.add(new int[]{2, 3 },new char[]{'L', 'L'});
-        tree.add(new int[]{4, 5, 6, 8, 9 },new char[]{'R', 'R', 'R', 'R', 'R' });
-        tree.add(new int[]{4, 2, 3 },new char[]{'R', 'L', 'L'});
-        tree.add(new int[]{4, 5, 6, 7 },new char[]{'R', 'R', 'L', 'L'});
-        tree.add(new int[]{4, 5, 6, 8, 9 },new char[]{'R', 'R', 'L', 'R', 'R'});
-        tree.add(new int[]{4, 5, 6, 7 },new char[]{'R', 'R', 'R', 'L'});
-
-        // (2(3()())())
-        // (6(7()())(8()(9()())))
-        // (8()(9()()))
-
-        tree.printDuplicatedSubtrees();
 
     }
 }
