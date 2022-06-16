@@ -1,13 +1,12 @@
 import section9.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.LinkedList;
 
 
 public class Main {
     public static void main(String[] args) {
-        HW1P5.BinarySearchTree bts = new HW1P5.BinarySearchTree();
+        HW2P2.BinarySearchTree bts = new HW2P2.BinarySearchTree();
         bts.insert(50);
         bts.insert(20);
         bts.insert(60);
@@ -19,12 +18,15 @@ public class Main {
         bts.insert(45);
         bts.insert(35);
         bts.insert(36);
-        bts.printByLevel();
-        System.out.println(bts.lca(15,45));
-        System.out.println(bts.lca(45,36));
-        System.out.println(bts.lca(15,70));
-        System.out.println(bts.lca(58,70));
-        System.out.println(bts.lca(36,75));
+        LinkedList<Integer> list = new LinkedList<>();
+        list.add(15);
+        list.add(20);
+        list.add(35);
+        list.add(45);
+        list.add(70);
+        bts.print();
+        System.out.println(list);
+        System.out.println(bts.successor2(list));
 
 
     }
