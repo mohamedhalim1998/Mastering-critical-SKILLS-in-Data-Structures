@@ -6,19 +6,31 @@ import java.util.LinkedList;
 
 public class Main {
     public static void main(String[] args) {
-        LinkedList<Integer> list = new LinkedList<>();
-        list.add(50);
-        list.add(20);
-        list.add(60);
-        list.add(15);
-        list.add(45);
-        list.add(70);
-        list.add(35);
-        list.add(73);
-        HW3P4.BinarySearchTree bts = new HW3P4.BinarySearchTree(list);
-        bts.print();
-        bts.printByLevel();
-
+        HW4P3.BinarySearchTree tree = new HW4P3.BinarySearchTree(50);
+        tree.insert(20);
+//        tree.insert(60);
+        tree.delete(50);
+        tree.print();
+//        tree.insert(15);
+//        tree.insert(45);
+//        tree.insert(70);
+//        tree.insert(35);
+//        tree.insert(73);
+//        tree.insert(14);
+//        tree.insert(16);
+//        tree.insert(36);
+//        tree.insert(58);
+//        tree.print();
+//        tree.printByLevel();
+//        tree.delete(20);
+//        tree.print();
+//        tree.printByLevel();
+//        tree.delete(73);
+//        tree.print();
+//        tree.printByLevel();
+//        tree.delete(60);
+//        tree.print();
+//        tree.printByLevel();
 
 
     }

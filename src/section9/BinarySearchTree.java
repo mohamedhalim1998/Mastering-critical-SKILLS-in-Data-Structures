@@ -24,7 +24,7 @@ public class BinarySearchTree {
         }
         if (parent.value > e) {
             parent.left = new Node(e);
-        } else if(parent.value < e) {
+        } else if (parent.value < e) {
             parent.right = new Node(e);
         }
     }
@@ -73,7 +73,7 @@ public class BinarySearchTree {
             if (child.right == null) {
                 return parent.value;
             } else {
-              return min(child.right);
+                return min(child.right);
             }
         }
         if (child.value > x) {
@@ -105,16 +105,21 @@ public class BinarySearchTree {
         }
 
         if (node.value == x) {
-            if (parent.left != null && parent.left.value == node.value) {
+            if (node.left == null && node.right == null) {
+                if (parent.left != null && parent.left.value == node.value) {
+                    parent.left = null;
+                }
+                if (parent.right != null && parent.right.value == node.value) {
+                    parent.right = null;
+                }
+            } else if (node.right == null) {
                 parent.left = node.left;
-                if (node.left != null) {
-                    parent.left.right = node.right;
-                }
-            } else {
+            } else if (node.left == null) {
                 parent.right = node.right;
-                if (node.right != null) {
-                    parent.right.left = node.left;
-                }
+            } else {
+                int min = min(node.right);
+                delete(min, node.right, node.right);
+                node.value = min;
             }
         } else {
             delete(x, node, node.left);
@@ -152,7 +157,7 @@ public class BinarySearchTree {
 
     public static class Node {
         public Node left, right;
-        private final int value;
+        private int value;
 
         public Node(int value) {
             this.value = value;
