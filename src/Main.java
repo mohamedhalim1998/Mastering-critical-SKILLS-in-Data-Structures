@@ -1,21 +1,29 @@
 import section10.*;
 
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
-
 public class Main {
     public static void main(String[] args) {
 
-        int[] arr = {22, 5, 12, 7, 6, 2, 14, 19, 10, 17, 8, 37, 25, 30};
-        HW1P5.MinHeap heap = new HW1P5.MinHeap(arr.length);
-        System.out.println(heap.toString());
-       heap.heapSort(arr);
-//        Arrays.sort(arr);
-        System.out.println(Arrays.toString(arr));
+
+        HW2P2.PriorityQueue tasks = new HW2P2.PriorityQueue();
+
+        tasks.enqueue(1131, 1);
+        tasks.enqueue(3111, 3);
+        tasks.enqueue(2211, 2);
+        tasks.enqueue(3161, 3);
+        tasks.enqueue(7761, 7);
+
+        System.out.println(tasks.dequeue());
+        System.out.println(tasks.dequeue());
+
+        tasks.enqueue(1535, 1);
+        tasks.enqueue(2815, 2);
+        tasks.enqueue(3845, 3);
+        tasks.enqueue(3145, 3);
+
+        while (!tasks.isEmpty())
+            System.out.println(tasks.dequeue());
     }
+
 }
 
