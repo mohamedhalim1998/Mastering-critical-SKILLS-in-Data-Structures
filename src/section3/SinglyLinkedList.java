@@ -688,6 +688,7 @@ public class SinglyLinkedList {
         return head == null;
     }
 
+
     private class Node {
         private int value;
         private Node next;

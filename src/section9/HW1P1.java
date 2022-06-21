@@ -76,7 +76,7 @@ public class HW1P1 {
             return root.toString();
         }
 
-        public static class Node {
+        public class Node {
             public Node left, right;
             private final int value;
 
