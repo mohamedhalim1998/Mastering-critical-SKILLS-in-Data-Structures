@@ -684,10 +684,13 @@ public class SinglyLinkedList {
         return Objects.hash(head, tail, size);
     }
 
+<<<<<<< HEAD
     public boolean isEmpty() {
         return head == null;
     }
 
+=======
+>>>>>>> 148c7a3ba470a3660974bcbcef35a9eac4ac9f0a
     private class Node {
         private int value;
         private Node next;

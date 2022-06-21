@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 import section10.*;
+=======
+import section6.HW3P3;
+import section6.HW3P5;
+>>>>>>> 148c7a3ba470a3660974bcbcef35a9eac4ac9f0a
 
 
 public class Main {
     public static void main(String[] args) {
+<<<<<<< HEAD
 
 
         HW2P2.PriorityQueue tasks = new HW2P2.PriorityQueue();
@@ -27,3 +33,11 @@ public class Main {
 
 }
 
+=======
+        System.out.println(HW3P5.removeBrackets("1-(2-3-(4+5-(6-7)))"));
+
+    }
+
+
+}
+>>>>>>> 148c7a3ba470a3660974bcbcef35a9eac4ac9f0a
