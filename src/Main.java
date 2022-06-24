@@ -1,29 +1,28 @@
-import section10.*;
+
+import section11.*;
+
 
 
 public class Main {
     public static void main(String[] args) {
+        HW1P7.AVL avl = new HW1P7.AVL(1);
+        for (int i = 2; i <= 20; i++) {
+            avl.insert(i);
+            avl.print();
+            avl.printByLevel();
+        }
+//        for (int i = 1; i <= 15; i++) {
+//            avl.delete(i);
+//            avl.print();
+//            avl.printByLevel();
+//        }
+        avl.delete(8);
+        avl.print();
+        avl.printByLevel();
 
 
-        HW2P2.PriorityQueue tasks = new HW2P2.PriorityQueue();
-
-        tasks.enqueue(1131, 1);
-        tasks.enqueue(3111, 3);
-        tasks.enqueue(2211, 2);
-        tasks.enqueue(3161, 3);
-        tasks.enqueue(7761, 7);
-
-        System.out.println(tasks.dequeue());
-        System.out.println(tasks.dequeue());
-
-        tasks.enqueue(1535, 1);
-        tasks.enqueue(2815, 2);
-        tasks.enqueue(3845, 3);
-        tasks.enqueue(3145, 3);
-
-        while (!tasks.isEmpty())
-            System.out.println(tasks.dequeue());
     }
-
 }
+
+
 
