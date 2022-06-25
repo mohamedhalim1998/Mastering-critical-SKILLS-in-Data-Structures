@@ -8,7 +8,7 @@ public class HW1P3 {
 
         public void insert(String s) {
             Trie curr = this;
-            for (int i = s.length()-1; i >= 0; i--) {
+            for (int i = s.length() - 1; i >= 0; i--) {
                 int index = s.charAt(i) - 'a';
                 if (curr.children[index] == null)
                     curr.children[index] = new Trie();
@@ -19,7 +19,7 @@ public class HW1P3 {
 
         public boolean containsSuffix(String s) {
             Trie curr = this;
-            for (int i = 0; i < s.length(); i++) {
+            for (int i = s.length() - 1; i >= 0; i--) {
                 int index = s.charAt(i) - 'a';
                 if (curr.children[index] == null)
                     return false;
