@@ -1,13 +1,16 @@
-import section13.HW1P5.HashTable;
-import section13.HW1P5.PhoneEntry;
+import section13.HW2P4;
+
+import java.util.LinkedList;
+
+import static section13.HW2P1.uniqueSubstring;
+import static section13.HW2P3.anagramSubstring;
 
 public class Main {
     public static void main(String[] args) {
-        HashTable table = new HashTable(10, .75);
-        for (int i = 0; i < 100; i++) {
-            table.put(new PhoneEntry("" + i, "" + i));
-            table.printAll();
-        }
+        HW2P4.SinglyLinkedList lst = new HW2P4.SinglyLinkedList();
+        lst.createCycle();
+        lst.removeCycle();
+        System.out.println(lst);
     }
 }
 
